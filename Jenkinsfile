@@ -1,24 +1,22 @@
-pipeline {
+pipeline{
     agent {label 'gameoflife'}
     triggers {
-        pollSCM('* * * * *')
-    }
-    options {
-        timeout(time: 30, unit: 'MINUTES')
-    }
-    parameters {
-        string(name: 'MAVENGOAL', defaultValue: 'clean package', description: 'Given maven goal')
+        cron('* * * * *')
     }
     stages{
         stage('SCM'){
             steps {
-                git 'https://github.com/rampaysaisandeep/game-of-life.git'
+                git 'https://github.com/rampaysaisandeep/multibranch-gol.git'
             }
-        }
-        stage('Build'){
+        stage('BUILD'){
             steps {
-                sh script: "mvn ${params.MAVENGOAL}"
+                sh 'mvn clean package'
             }
+        stage('post build'){
+            steps {
+                Junit 'gameoflife-web/target/surefire-reports/*.xml'  
+            }    
+                
         }
     }
 }
