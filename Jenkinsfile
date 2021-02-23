@@ -11,11 +11,7 @@ pipeline{
         stage('BUILD'){
             steps {
                 sh 'mvn clean package'
-            }
-        stage('post build'){
-            steps {
-                Junit 'gameoflife-web/target/surefire-reports/*.xml'  
-            }    
+            }   
                 
         }
     }
