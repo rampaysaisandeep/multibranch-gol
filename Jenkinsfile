@@ -12,7 +12,7 @@ pipeline {
     stages{
         stage('SCM'){
             steps {
-                git developer 'https://github.com/rampaysaisandeep/multibranch-gol.git'
+                git 'https://github.com/rampaysaisandeep/multibranch-gol.git'
             }
         }
         stage('Build'){
